@@ -32,6 +32,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'sjl/gundo.vim'
 Plug 'gregsexton/gitv', {'on': ['Gitv']}
+Plug 'altercation/vim-colors-solarized'
 
 call plug#end()
  
