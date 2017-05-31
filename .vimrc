@@ -10,6 +10,7 @@ set nobackup
 set nowritebackup
 set noswapfile
 set wildignore+=*.o,*.obj,.git,node_modules,_site,*.class,*.zip,*.aux
+" set fdm=syntax
 
 " Plugins (https://github.com/junegunn/vim-plug)
 call plug#begin('~/.vim/plugged')
@@ -33,6 +34,8 @@ Plug 'mzlogin/vim-markdown-toc'
 Plug 'sjl/gundo.vim'
 Plug 'gregsexton/gitv', {'on': ['Gitv']}
 Plug 'altercation/vim-colors-solarized'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-ragtag'
 
 call plug#end()
  
@@ -94,3 +97,12 @@ let g:vim_markdown_conceal = 0
 
 " gundo plugin
 nnoremap <F5> :GundoToggle<CR>
+
+" solarized plugin
+"set background=dark
+"colorscheme solarized
+"let g:solarized_termcolors=256
+
+" ragtag plugin
+let g:ragtag_global_maps = 1
+
