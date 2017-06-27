@@ -10,6 +10,8 @@ set nobackup
 set nowritebackup
 set noswapfile
 set wildignore+=*.o,*.obj,.git,node_modules,_site,*.class,*.zip,*.aux
+set autowrite
+let mapleader=","
 " set fdm=syntax
 
 " Plugins (https://github.com/junegunn/vim-plug)
@@ -18,6 +20,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'fatih/vim-go',  { 'do': ':GoInstallBinaries' } 
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'https://github.com/vim-syntastic/syntastic.git'
@@ -79,6 +83,9 @@ imap <C-@> <C-Space>
 
 " fatih/vim-go plugin
 autocmd FileType go nmap <Leader>i <Plug>(go-info)
+autocmd FileType go nmap <Leader>b  <Plug>(go-build)
+autocmd FileType go nmap <Leader>r  <Plug>(go-run)
+autocmd FileType go nmap <Leader>t  <Plug>(go-test)
 let g:go_auto_type_info = 1
 
 " syntastic plugin
@@ -106,3 +113,11 @@ nnoremap <F5> :GundoToggle<CR>
 " ragtag plugin
 let g:ragtag_global_maps = 1
 
+" ultisnippets plugin
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
