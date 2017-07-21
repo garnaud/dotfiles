@@ -12,6 +12,10 @@ set noswapfile
 set wildignore+=*.o,*.obj,.git,node_modules,_site,*.class,*.zip,*.aux
 set autowrite
 let mapleader=","
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+nnoremap <silent> <Leader>< :exe "resize " . (winwidth(0) * 3/2)<CR>
+nnoremap <silent> <Leader>> :exe "resize " . (winwidth(0) * 3/2)<CR>
 " set fdm=syntax
 
 " Plugins (https://github.com/junegunn/vim-plug)
@@ -107,7 +111,7 @@ nnoremap <F5> :GundoToggle<CR>
 
 " solarized plugin
 "set background=dark
-"colorscheme solarized
+colorscheme darkblue
 "let g:solarized_termcolors=256
 
 " ragtag plugin
