@@ -32,6 +32,7 @@ Plug 'https://github.com/vim-syntastic/syntastic.git'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-ragtag'
 Plug 'plasticboy/vim-markdown'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/limelight.vim'
@@ -43,7 +44,7 @@ Plug 'sjl/gundo.vim'
 Plug 'gregsexton/gitv', {'on': ['Gitv']}
 Plug 'altercation/vim-colors-solarized'
 Plug 'tomtom/tcomment_vim'
-Plug 'tpope/vim-ragtag'
+Plug 'rodjek/vim-puppet'
 
 call plug#end()
  
@@ -122,6 +123,7 @@ let g:ragtag_global_maps = 1
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "custom-snippets"]
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
