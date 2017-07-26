@@ -16,7 +16,13 @@ nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 nnoremap <silent> <Leader>< :exe "resize " . (winwidth(0) * 3/2)<CR>
 nnoremap <silent> <Leader>> :exe "resize " . (winwidth(0) * 3/2)<CR>
+nnoremap <silent> <Leader><up> :wincmd k<CR>
+nnoremap <silent> <Leader><down> :wincmd j<CR>
+nnoremap <silent> <Leader><left> :wincmd h<CR>
+nnoremap <silent> <Leader><right> :wincmd l<CR>
+
 " set fdm=syntax
+
 
 " Plugins (https://github.com/junegunn/vim-plug)
 call plug#begin('~/.vim/plugged')
