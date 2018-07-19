@@ -1,10 +1,11 @@
 [user]
 	name = Guillaume Arnaud
+	email = garnaud@oui.sncf
 
 [alias]
 	last = log -1 HEAD
-  ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+  ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --graph
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat --graph
   lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
   lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
   ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
@@ -42,3 +43,7 @@
   ss = stash save
 
 
+[url "https://"]
+	insteadOf = git+ssh://
+[core]
+	editor = vim

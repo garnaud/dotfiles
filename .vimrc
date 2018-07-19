@@ -51,6 +51,10 @@ Plug 'gregsexton/gitv', {'on': ['Gitv']}
 Plug 'altercation/vim-colors-solarized'
 Plug 'tomtom/tcomment_vim'
 Plug 'rodjek/vim-puppet'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'chrisbra/csv.vim'
+Plug 'othree/xml.vim'
 
 call plug#end()
  
@@ -97,6 +101,9 @@ autocmd FileType go nmap <Leader>i <Plug>(go-info)
 autocmd FileType go nmap <Leader>b  <Plug>(go-build)
 autocmd FileType go nmap <Leader>r  <Plug>(go-run)
 autocmd FileType go nmap <Leader>t  <Plug>(go-test)
+autocmd FileType go nmap <Leader>d  :GoDecls<CR>
+autocmd FileType go nmap <Leader>e  :GoInstall<CR>
+
 let g:go_auto_type_info = 1
 
 " syntastic plugin
@@ -133,3 +140,6 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "custom-snippets"]
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+" airline/airline
+let g:airline_powerline_fonts = 1
