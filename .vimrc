@@ -103,6 +103,7 @@ autocmd FileType go nmap <Leader>r  <Plug>(go-run)
 autocmd FileType go nmap <Leader>t  <Plug>(go-test)
 autocmd FileType go nmap <Leader>d  :GoDecls<CR>
 autocmd FileType go nmap <Leader>e  :GoInstall<CR>
+autocmd FileType go nmap <Leader>m  :GoDoc<CR>
 
 let g:go_auto_type_info = 1
 
