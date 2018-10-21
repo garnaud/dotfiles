@@ -32,7 +32,6 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'fatih/vim-go',  { 'do': ':GoInstallBinaries' } 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'https://github.com/vim-syntastic/syntastic.git'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -144,3 +143,9 @@ let g:UltiSnipsEditSplit="vertical"
 
 " airline/airline
 let g:airline_powerline_fonts = 1
+let g:go_version_warning = 0
+
+" neovim
+if !has('nvim')
+  set ttymouse=xterm2
+endif
