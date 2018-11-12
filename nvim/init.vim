@@ -86,4 +86,3 @@ let g:UltiSnipsEditSplit="vertical"
 imap <C-Space> <C-x><C-o>
 imap <C-@> <C-Space>
 let g:go_gocode_propose_source=0
-
