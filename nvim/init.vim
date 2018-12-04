@@ -27,23 +27,42 @@ Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nv
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'SirVer/ultisnips'
+Plug 'rodjek/vim-puppet'
 call plug#end()
 
 " fatih/vim-go plugin
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 autocmd FileType go nmap <Leader>i <Plug>(go-info)
-autocmd FileType go nmap <Leader>b  <Plug>(go-build)
+"autocmd FileType go nmap <Leader>b  <Plug>(go-build)
 autocmd FileType go nmap <Leader>r  <Plug>(go-run)
 autocmd FileType go nmap <Leader>t  <Plug>(go-test)
 autocmd FileType go nmap <Leader>d  :GoDecls<CR>
 autocmd FileType go nmap <Leader>e  :GoInstall<CR>
 autocmd FileType go nmap <Leader>m  :GoDoc<CR>
+map <Leader>n :cnext<CR>
+map <Leader>p :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 
+let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 1
 let g:go_version_warning = 0
+let g:go_auto_sameids = 1
 
 " NERDTree plugin
 map <C-n> :NERDTreeToggle<CR>
@@ -63,4 +82,8 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "custom-snippets"]
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
+" gocode plugin
+imap <C-Space> <C-x><C-o>
+imap <C-@> <C-Space>
+let g:go_gocode_propose_source=0
 
