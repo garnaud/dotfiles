@@ -1,9 +1,49 @@
 [user]
-	name = Guillaume Arnaud
-	email = garnaud@oui.sncf
+  name = Guillaume Arnaud
+  email = guillaume.arnaud@margo.com
 
 [alias]
-	last = log -1 HEAD
+  # create a branch with the upstream/master as upstream
+  fork = "!f() { git checkout -b $1 upstream/master; }; f"
+
+  # git track [reference-branch]
+  # A glorified alias for `git branch --set-upstream-to=upstream/reference-branch`.
+  # Configure the current branch to track an upstream reference branch (by default `upstream/dev` ; auto-completable with Tab).
+  # This allow you to update the branch with the latest upstream changes using simply `git pull`, without further arguments.
+  track="!f() {  local b=${1-dev} ; git branch --set-upstream-to=upstream/$b ; }; f"
+
+  # git feat <new-branch> [reference-branch]
+  # Create a branch for a new feature or bugfix, and make it track the reference branch (by default `upstream/dev`).
+  feat="!f() { local b=${2-dev} ; git checkout $b && git pull && git checkout -b \"$1\" && git track $b; }; f"
+
+  # git pfo
+  # Update the remote copy of your (unmerged) feature branch.
+  pfo="push --force origin"
+
+  # git pull upstream master
+  pum="pull upstream master"
+
+  # git hist
+  # Display a git tree from the current branch
+  hist="log --pretty=format:\"%C(yellow)%h%Creset %C(green)%ad%Creset | %s %C(blue)%d%Creset %C(red)[%an]%Creset\" --graph --date=short --color"
+
+  # git review
+  # If you have set your tracked branch with 'git track [ref-branch]' you can review your commits with the following command
+  review="rebase -i HEAD@{u} --autosquash"
+
+  # git branch with nice information like upstreams, ordered by last worked 
+  br = branch --sort=committerdate -vv
+
+  # list files of a commit. eg: git files HEAD
+  files = diff-tree --no-commit-id --name-only -r
+
+  # Amend the last commit, do not change the commit message
+  correct = commit --amend --no-edit
+
+  # git log the last 10 commits on a oneliner
+  l = log --decorate --pretty=oneline --abbrev-commit -n10
+
+  last = log -1 HEAD
   ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --graph
   ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat --graph
   lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
@@ -42,8 +82,14 @@
   sa = stash apply
   ss = stash save
 
-
 [url "https://"]
-	insteadOf = git+ssh://
+  insteadOf = git+ssh://
 [core]
-	editor = vim
+  editor = vim
+[pull]
+	rebase = true
+[rebase]
+	autoSquash = true
+	autoStash = true
+[log]
+	follow = true
