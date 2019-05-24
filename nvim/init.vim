@@ -1,3 +1,6 @@
+" help nvim to find python
+let g:python_host_prog = "/user/bin/python"
+
 " common setup
 syntax on
 filetype plugin indent on
@@ -22,6 +25,7 @@ nnoremap <silent> <Leader><down> :wincmd j<CR>
 nnoremap <silent> <Leader><left> :wincmd h<CR>
 nnoremap <silent> <Leader><right> :wincmd l<CR>
 
+" plugin
 call plug#begin()
 Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
@@ -33,6 +37,11 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'SirVer/ultisnips'
 Plug 'rodjek/vim-puppet'
+Plug 'hashivim/vim-terraform'
+Plug 'vim-syntastic/syntastic'
+Plug 'juliosueiras/vim-terraform-completion'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'neomake/neomake'
 call plug#end()
 
 " fatih/vim-go plugin
@@ -86,3 +95,61 @@ let g:UltiSnipsEditSplit="vertical"
 imap <C-Space> <C-x><C-o>
 imap <C-@> <C-Space>
 let g:go_gocode_propose_source=0
+
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+
+" Syntastic Config
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" Remove Info(Preview) window
+" set completeopt-=preview
+
+" Hide Info(Preview) window after completions
+" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+" autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+"""""""""""""
+" Terraform "
+"""""""""""""
+" Enable terraform plan to be include in filter
+let g:syntastic_terraform_tffilter_plan = 1
+
+" Default: 0, enable(1)/disable(0) plugin's keymapping
+let g:terraform_completion_keys = 1
+
+" Default: 1, enable(1)/disable(0) terraform module registry completion
+let g:terraform_registry_module_completion = 0
+
+let g:terraform_align=1
+let g:terraform_fold_sections=1
+let g:terraform_remap_spacebar=1
+let g:terraform_commentstring='//%s'
+let g:terraform_fmt_on_save=1
+
+" deoplete (completion)
+let g:deoplete#omni_patterns = {}
+let g:deoplete#omni_patterns.terraform = '[^ *\t"{=$]\w*'
+let g:deoplete#enable_at_startup = 1
+call deoplete#initialize()
+
+"""""""""""""""
+"  Neomake    "
+"""""""""""""""
+
+" When writing a buffer (no delay).
+call neomake#configure#automake('w')
+" When writing a buffer (no delay), and on normal mode changes (after 750ms).
+call neomake#configure#automake('nw', 750)
+" When reading a buffer (after 1s), and when writing (no delay).
+call neomake#configure#automake('rw', 1000)
+" Full config: when writing or reading a buffer, and on changes in insert and
+" normal mode (after 1s; no delay when writing).
+call neomake#configure#automake('nrwi', 500)
