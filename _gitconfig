@@ -1,0 +1,107 @@
+[include]
+  path=~/.gitconfig.local
+
+[alias]
+  # create a branch with the upstream/master as upstream
+  fork = "!f() { git checkout -b $1 upstream/master; }; f"
+
+  # git track [reference-branch]
+  # A glorified alias for `git branch --set-upstream-to=upstream/reference-branch`.
+  # Configure the current branch to track an upstream reference branch (by default `upstream/dev` ; auto-completable with Tab).
+  # This allow you to update the branch with the latest upstream changes using simply `git pull`, without further arguments.
+  track="!f() {  local b=${1-dev} ; git branch --set-upstream-to=upstream/$b ; }; f"
+
+  # git feat <new-branch> [reference-branch]
+  # Create a branch for a new feature or bugfix, and make it track the reference branch (by default `upstream/dev`).
+  feat="!f() { local b=${2-dev} ; git checkout $b && git pull && git checkout -b \"$1\" && git track $b; }; f"
+
+  # git pfo
+  # Update the remote copy of your (unmerged) feature branch.
+  pfo="push --force origin"
+
+  pup="push --set-upstream origin HEAD"
+
+  # git pull upstream master
+  pum="pull upstream master"
+
+  # Cleanup merged branches
+  cleanup="!f() { git branch --merged | egrep -v 'master' | xargs git branch -d; }; f"
+
+  # git hist
+  # Display a git tree from the current branch
+  hist="log --pretty=format:\"%C(yellow)%h%Creset %C(green)%ad%Creset | %s %C(blue)%d%Creset %C(red)[%an]%Creset\" --graph --date=short --color"
+
+  # git review
+  # If you have set your tracked branch with 'git track [ref-branch]' you can review your commits with the following command
+  review="rebase -i HEAD@{u} --autosquash"
+
+  # git branch with nice information like upstreams, ordered by last worked 
+  br = branch --sort=committerdate -vv
+
+  # list files of a commit. eg: git files HEAD
+  files = diff-tree --no-commit-id --name-status -r
+
+  # Amend the last commit, do not change the commit message
+  correct = commit --amend --no-edit
+
+  # git log the last 10 commits on a oneliner
+  l = log --decorate --pretty=oneline --abbrev-commit -n10
+
+  last = log -1 HEAD
+  ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%an]" --decorate --graph
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%an]" --decorate --numstat --graph
+  lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+  lds = log --pretty=format:"%C(yellow)%h\\ %ad\\ %Creset%s%Cblue\\ [%an]" --date=short --no-merges --no-decorate
+  lc = "!f() { git log --pretty=format:'%C(yellow)%h\\ %ad\\ %Creset%s%Cblue\\ [%an]'--date=short --no-merges --no-decorate; }; f"
+  ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%an]" --decorate --date=relative
+  le = log --oneline 
+  filelog = log -u
+  fl = log -u
+  dl = "!git ll -1"
+  dlc = diff --cached HEAD^
+  f = "!git ls-files | grep -i"
+  grep = grep -Ii
+  gr = grep -Ii
+  gra = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
+  la = "!git config -l | grep alias | cut -c 7-"
+  done = "!f() { git branch | grep "$1" | cut -c 3- | grep -v done | xargs -I{} git branch -m {} done-{}; }; f"
+  lasttag = describe --tags --abbrev=0
+  lt = describe --tags --abbrev=0
+  ours = "!f() { git co --ours $@ && git add $@; }; f"
+  theirs = "!f() { git co --theirs $@ && git add $@; }; f"
+  cp = cherry-pick
+  st = status -s
+  cl = clone
+  ci = commit
+  co = checkout
+  #br = branch 
+  diff = diff --word-diff
+  dc = diff --cached
+  r = reset
+  r1 = reset HEAD^
+  r2 = reset HEAD^^
+  rh = reset --hard
+  rh1 = reset HEAD^ --hard
+  rh2 = reset HEAD^^ --hard
+  sl = stash list
+  sa = stash apply
+  ss = stash save
+
+[url "https://"]
+  insteadOf = git+ssh://
+[core]
+  editor = vim
+	excludesfile = /Users/guillaumearnaud/.gitignore_global
+[pull]
+	rebase = true
+[rebase]
+	autoSquash = true
+	autoStash = true
+[log]
+	follow = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
